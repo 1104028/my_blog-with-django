@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <div class='col-sm-6 col-sm-offset-3'>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="thumbnail">
+                    <center><h3>Welcome to My Blog</h3></center>
+                    <img src="{% static "images/ruku_blog.JPG" %}" height="300px" width="300px" class='img-responsive'
+                         alt="My image"/>
+
+                    <ul class="social-network social-circle">
+                        <li><a href="https://www.facebook.com/rukunujjaman.miaji" class="icoFacebook"
+                               title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/RUKUNUJJAMAN_M" class="icoTwitter" title="Twitter"><i
+                                class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://plus.google.com/u/0/112785827430209654242" class="icoGoogle"
+                               title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/md-rukunujjaman-miaji-b5323212a/" class="icoLinkedin"
+                               title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,84 @@
+{% load crispy_forms_tags %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <!-- First Blog Post -->
+                {% for obj in object_list %}
+                    <title>{{ obj.title }}</title>
+                    <h2>
+                        <a href="#">{{ obj.title }}</a>
+                    </h2>
+                    <p class="lead">
+                        by <a href="#">{{ obj.author }}</a>
+                    </p>
+
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ obj.published_date }}</p>
+                    <hr>
+                    {% if obj.image %}
+                        <img class="img-responsive" src="{{ obj.image.url }}" width="200px" height="200px" alt="Hi">
+                        <hr>
+                    {% endif %}
+
+                    <p>{{ obj.body|safe|linebreaksbr }} </p>
+
+
+                    <hr>
+
+                    <h3 class='lead'>Comments</h3>
+                    {% if request.user.is_authenticated %}
+                        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                            {{ userform.as_p }}
+                            <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Post Comment</button>
+
+                            </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        <p>You must login to comment </p>
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+
+        {% for comment in post.comments.all %}
+            <br>
+            {% if user.is_authenticated or comment.approved_comment %}
+
+                <b>{{ comment.created_date }}</b>
+                {% if user.username %}
+                    <br>
+                    <a class="btn btn-default btn-comment-remove"
+                       href="{% url 'blog:comment_remove' pk=comment.pk %}"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                {% endif %}
+
+                {% if not comment.approved_comment %}
+                    <!-- <a class="btn btn-default" href="{% url 'blog:comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a> -->
+                    <hr>
+                    <a class="btn btn-default btn-comment-approve"
+                       href="{% url 'blog:comment_approve' pk=comment.pk %}"><span
+                            class="glyphicon glyphicon-ok"></span></a>
+                {% endif %}
+
+                <p><strong>{{ comment.text|safe|linebreaks }}</strong></p>
+                <p>Posted by: <strong style="color:blue;">{{ comment.author }}</strong></p>
+
+            {% endif %}
+        {% empty %}
+            <p><strong>No comments posted.</strong></p>
+        {% endfor %}
+    </div>
+{% endblock %}

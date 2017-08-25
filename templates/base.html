@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}রুকুনুজ্জামান মিয়াজীর ব্লগ{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <!--Header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'blogsite:index' %}">রুকুনুজ্জামান মিয়াজীর ব্লগ</a>
+        </div>
+        <!--Items -->
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{% url 'login' %}">
+                        <span class="#" aria-hidden="true"></span>&nbsp; Login
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{% url 'register' %}">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; Register
+                    </a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{% url 'logout' %}">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; logout
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+
+    </div>
+    </div>
+</nav>
+</body>
+
+{% block body %}
+{% endblock %}
+</body>
+</html>
+
+
